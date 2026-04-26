@@ -19,7 +19,8 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
     public static final String SPRING_SECURITY_FORM_PASSWORD_KEY = "password";
 
     // 더이상 사용되지 않음
-    private static final AntPathRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER = new AntPathRequestMatcher("/login", "POST");
+    private static final AntPathRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER =
+            new AntPathRequestMatcher("/login", "POST");
 
     private boolean postOnly = true;
 
@@ -32,7 +33,7 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
                                                 HttpServletResponse response)
             throws AuthenticationException, IOException, ServletException {
 
-        if(postOnly && !"POST".equals(request.getMethod())) {
+        if(this.postOnly && !request.getMethod().equals("POST")) {
             throw new AuthenticationServiceException("Authentication method not supported : " + request.getMethod());
         }
 
@@ -50,6 +51,9 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
         return this.getAuthenticationManager().authenticate(authRequest);
     }
 
+    /**
+     * helper
+     */
     protected String obtainUsername(HttpServletRequest request) {
         return request.getParameter(SPRING_SECURITY_FORM_USERNAME_KEY);
     }
