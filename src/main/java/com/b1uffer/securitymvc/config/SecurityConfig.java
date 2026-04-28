@@ -64,13 +64,13 @@ public class SecurityConfig {
 //        return http.build();
 //    }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    public void deleteUser(Long id) {
-        // ADMIN 권한을 가진 사용자만 실행 가능한 메서드
-    }
-
-    @PostAuthorize("returnObject.owner == authentication.name")
-    public User getUser(Long id) {
-        // 반환된 User 객체의 소유자가 현재 사용자일때만 접근 허용하기
-    }
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public void deleteUser(Long id) {
+//        // ADMIN 권한을 가진 사용자만 실행 가능한 메서드
+//    }
+//
+//    @PostAuthorize("returnObject.owner == authentication.name")
+//    public User getUser(Long id) {
+//        // 반환된 User 객체의 소유자가 현재 사용자일때만 접근 허용하기
+//    }
 }
