@@ -1,5 +1,6 @@
 package com.b1uffer.securitymvc.config;
 
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,13 @@ public class SecurityConfig {
                         .requestMatchers("/user/**").access(AuthorityAuthorizationManager.hasRole("USER"))
 //                        .requestMatchers("/user/**").hasRole("USER")
 //                        .requestMatchers(new RegexRequestMatcher("^/file/[a-f0-9\\\\-]{36}$", null)).hasAuthority("FILE_READ")
-                        .anyRequest().authenticated())
+                        /**
+                         * implementation 'org.springframework.boot:spring-boot-starter-actuator'
+                         */
+//                        .requestMatchers(EndpointRequest.to("health", "info")).permitAll()
+//                        .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
                 .csrf(csrf -> csrf.disable())
                 .headers(headers -> headers
                         .frameOptions(frame -> frame.sameOrigin()))
