@@ -24,6 +24,7 @@ public class SecurityConfig {
                         .requestMatchers("/user/**").access(AuthorityAuthorizationManager.hasRole("USER"))
 //                        .requestMatchers("/user/**").hasRole("USER")
 //                        .requestMatchers(new RegexRequestMatcher("^/file/[a-f0-9\\\\-]{36}$", null)).hasAuthority("FILE_READ")
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())
                 .headers(headers -> headers
