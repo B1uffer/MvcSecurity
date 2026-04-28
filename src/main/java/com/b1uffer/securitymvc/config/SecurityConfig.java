@@ -19,12 +19,12 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/admin/**").access(AuthorityAuthorizationManager.hasRole("ADMIN"))
 //                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").access(AuthorityAuthorizationManager.hasRole("USER"))
 //                        .requestMatchers("/user/**").hasRole("USER")
 //                        .requestMatchers(new RegexRequestMatcher("^/file/[a-f0-9\\\\-]{36}$", null)).hasAuthority("FILE_READ")
-                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())
                 .headers(headers -> headers
