@@ -3,9 +3,12 @@ package com.b1uffer.securitymvc.config;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authorization.AuthorityAuthorizationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 public class SecurityConfig {
@@ -27,4 +30,22 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+    /**
+     * 경로 매칭 전략, MVC 패턴
+     */
+//    @Bean
+//    MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
+//        return new MvcRequestMatcher.Builder(introspector);
+//    }
+//
+//    @Bean
+//    SecurityFilterChain springSecurityFilterChain(HttpSecurity http) throws Exception {
+//        http.authorizeHttpRequests(auth -> auth
+//                .requestMatchers(mvc().pattern("/articles/{id}")).hasRole("USER") // 경로 변수 인식
+//                .requestMatchers(mvc().pattern(HttpMethod.POST, "/articles")).hasRole("WRITER")
+//                .anyRequest().authenticated()
+//        );
+//        return http.build();
+//    }
 }
