@@ -16,7 +16,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .requestMatchers("/admin/**").access(AuthorityAuthorizationManager.hasRole("ADMIN"))
+//                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").access(AuthorityAuthorizationManager.hasRole("USER"))
+//                        .requestMatchers("/user/**").hasRole("USER")
                         .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())
                 .headers(headers -> headers
