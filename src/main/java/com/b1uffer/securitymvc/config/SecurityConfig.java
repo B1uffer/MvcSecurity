@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authorization.AuthorityAuthorizationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -61,4 +63,14 @@ public class SecurityConfig {
 //        );
 //        return http.build();
 //    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    public void deleteUser(Long id) {
+        // ADMIN 권한을 가진 사용자만 실행 가능한 메서드
+    }
+
+    @PostAuthorize("returnObject.owner == authentication.name")
+    public User getUser(Long id) {
+        // 반환된 User 객체의 소유자가 현재 사용자일때만 접근 허용하기
+    }
 }
