@@ -33,6 +33,7 @@ public class SecurityConfig {
 
     /**
      * 경로 매칭 전략, MVC 패턴
+     * MvcRequestMatcher는 3.5.x 기준으로 더이상 사용되지 않는다
      */
 //    @Bean
 //    MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
