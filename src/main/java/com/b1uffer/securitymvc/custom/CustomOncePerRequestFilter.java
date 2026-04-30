@@ -13,8 +13,18 @@ public class CustomOncePerRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        // 요청 전 처리
+        /**
+         * 요청 전 처리
+         * 클라이언트의 IP를 가져온다
+         * OS 레벨의 TCP 이후 tomcat을 통해 IP를 가져옴
+         */
         String clientIp = request.getRemoteAddr();
         System.out.println("[CustomOncePerRequestFilter] 클라이언트 IP : " + clientIp);
+
+        // 필터 체인 진행
+        filterChain.doFilter(request, response);
+
+        // 응답 후 처리
+        System.out.println("[CustomOncePerRequestFilter] 응답 완료");
     }
 }
