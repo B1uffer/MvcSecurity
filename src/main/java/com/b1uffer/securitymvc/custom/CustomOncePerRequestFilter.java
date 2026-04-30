@@ -23,8 +23,11 @@ public class CustomOncePerRequestFilter extends OncePerRequestFilter {
         System.out.println("[CustomOncePerRequestFilter] 클라이언트 IP : " + clientIp);
 
         String token = request.getHeader("Authorization");
-        if(token != null && token.startsWith("Bearer")) {
+        if(token != null && token.startsWith("Bearer ")) {
             // 토큰 파싱 및 검증 로직 구현
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return; // 인증에 실패하면 필터체인이 중단됨
+
             // 검증에 성공하면 Authentication 객체 생성 후 SecurityContext에 저장하는 로직
         }
         String traceId = UUID.randomUUID().toString();
