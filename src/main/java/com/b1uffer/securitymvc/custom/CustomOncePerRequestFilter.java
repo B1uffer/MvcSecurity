@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.UUID;
 
 public class CustomOncePerRequestFilter extends OncePerRequestFilter {
     @Override
@@ -26,6 +27,9 @@ public class CustomOncePerRequestFilter extends OncePerRequestFilter {
             // 토큰 파싱 및 검증 로직 구현
             // 검증에 성공하면 Authentication 객체 생성 후 SecurityContext에 저장하는 로직
         }
+        String traceId = UUID.randomUUID().toString();
+        response.getHeader("X-Trace-Id" + traceId);
+        System.out.println("[Trace] 요청 추적 ID : " + traceId);
 
         // 필터 체인 진행
         filterChain.doFilter(request, response);
