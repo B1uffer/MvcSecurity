@@ -21,6 +21,12 @@ public class CustomOncePerRequestFilter extends OncePerRequestFilter {
         String clientIp = request.getRemoteAddr();
         System.out.println("[CustomOncePerRequestFilter] 클라이언트 IP : " + clientIp);
 
+        String token = request.getHeader("Authorization");
+        if(token != null && token.startsWith("Bearer")) {
+            // 토큰 파싱 및 검증 로직 구현
+            // 검증에 성공하면 Authentication 객체 생성 후 SecurityContext에 저장하는 로직
+        }
+
         // 필터 체인 진행
         filterChain.doFilter(request, response);
 
