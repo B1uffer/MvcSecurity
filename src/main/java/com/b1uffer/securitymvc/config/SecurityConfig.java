@@ -26,7 +26,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+        http    .securityMatcher("/api/secure/**") // 해당 체인이 이 URL만으로 처리된다
                 .addFilterBefore(new CustomOncePerRequestFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(new CustomGenericFilter(), CsrfFilter.class)
                 .addFilterAt(new CustomOncePerRequestFilter(), BasicAuthenticationFilter.class)
