@@ -32,6 +32,7 @@ public class CustomOncePerRequestFilter extends OncePerRequestFilter {
         }
         String traceId = UUID.randomUUID().toString();
         response.addHeader("X-Trace-Id", traceId);
+        response.addHeader("X-Custom-Header", "CustomValue");
         System.out.println("[Trace] 요청 추적 ID : " + traceId);
 
         // 필터 체인 진행
