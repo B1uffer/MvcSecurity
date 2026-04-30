@@ -35,6 +35,11 @@ public class CustomOncePerRequestFilter extends OncePerRequestFilter {
         response.addHeader("X-Custom-Header", "CustomValue");
         System.out.println("[Trace] 요청 추적 ID : " + traceId);
 
+        String path = request.getRequestURI();
+        if(path.startsWith("/api/secure/")) {
+            // 특정 URI에만 실행할 로직 구현
+        }
+
         // 필터 체인 진행
         filterChain.doFilter(request, response);
 
