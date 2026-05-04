@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nonce Test</title>
+</head>
+<body>
+    <script th:attr="nonce=${cspNonce}"> <!-- 이 부분이 바뀜 -->
+        console.log('nonce script');
+    </script>
+</body>
+</html>
