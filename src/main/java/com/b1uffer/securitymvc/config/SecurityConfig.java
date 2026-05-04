@@ -22,6 +22,8 @@ import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
+import java.nio.file.Path;
+
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
@@ -68,6 +70,31 @@ public class SecurityConfig {
                 ))
                 // .xssProtection(x -> x.block(true))는 레거시 코드로, 최신 브라우저에서는 대부분 무시된다
         );
+        return http.build();
+    }
+
+    /**
+     * h2 Console 전용 체인
+     */
+    @Bean
+    @Order(0)
+    public SecurityFilterChain h2ConsoleFilterChain(HttpSecurity http) throws Exception {
+        http
+                .securityMatcher(PathRequest.toH2Console())
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll()
+                )
+                .csrf(csrf -> csrf.disable())
+                // XSS
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame.sameOrigin())
+                        .contentSecurityPolicy(csp -> csp.policyDirectives(
+                                "script-src 'self' 'unsafe-inline'; " +
+                                        "object-src 'none'; " +
+                                        "frame-ancestors 'self'"
+                        ))
+                );
+
         return http.build();
     }
 
