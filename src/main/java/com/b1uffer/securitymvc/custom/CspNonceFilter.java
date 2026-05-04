@@ -34,4 +34,13 @@ public class CspNonceFilter extends OncePerRequestFilter {
         // 필터체인 진행
         filterChain.doFilter(request, response);
     }
+
+    /**
+     * 이 체인을 h2-console 및 특정 uri에서 돌아가지 않게끔 하는 메서드
+     * 혹은 @Component를 빼고 SecurityConfig의 원하는 체인에 securityMatcher로 해당 클래스를 넣으면 된다
+     */
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return request.getRequestURI().startsWith("/h2-console");
+    }
 }
