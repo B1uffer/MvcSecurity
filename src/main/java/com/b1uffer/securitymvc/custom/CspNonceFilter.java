@@ -24,7 +24,8 @@ public class CspNonceFilter extends OncePerRequestFilter {
         random.nextBytes(b);
 
         String nonce = Base64.getUrlEncoder().encodeToString(b);
-        request.setAttribute("cspNonce", nonce);
+        request.setAttribute("cspNonce", nonce); // nonce 생성
+        // 헤더 주입
         response.setHeader("Content-Security-Policy",
                 "default-src 'self'; script-src 'nonce-" + nonce + "' " +
                         "'strict-dynamic'; object-src 'none' base-uri 'self'; frame-ancestors 'none'"
