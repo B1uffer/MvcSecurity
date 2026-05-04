@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+</head>
+<body>
+<h1>게시판</h1>
+<form action="/board" method="post">
+    <textarea name="content"></textarea>
+    <button type="submit">등록</button>
+</form>
+<ul>
+    <th:block th:each="post : ${posts}">
+        <li th:text="${post}"></li> <!-- HTML 이스케이프 적용 → 스크립트 실행 차단 -->
+    </th:block>
+</ul>
+<script th:attr="nonce=${cspNonce}">console.log('CSP Nonce working');</script>
+</body>
+</html>
