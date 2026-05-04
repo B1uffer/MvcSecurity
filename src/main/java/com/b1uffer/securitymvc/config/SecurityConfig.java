@@ -69,6 +69,8 @@ public class SecurityConfig {
                         "object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
                 ))
                 // .xssProtection(x -> x.block(true))는 레거시 코드로, 최신 브라우저에서는 대부분 무시된다
+        )
+                .csrf(csrf -> csrf.disable()
         );
         return http.build();
     }
