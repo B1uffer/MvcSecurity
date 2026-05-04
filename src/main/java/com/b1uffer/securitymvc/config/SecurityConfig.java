@@ -60,9 +60,14 @@ public class SecurityConfig {
     @Order(2)
     public SecurityFilterChain xssFilterChain(HttpSecurity http) throws Exception {
         http.headers(headers -> headers
-                .contentTypeOptions(Customizer.withDefaults())
+                .contentTypeOptions(Customizer.withDefaults()) // X-Content-Type-Options : nosniff
+                .contentSecurityPolicy(csp -> csp.policyDirectives(
+                        "default-src 'self'; " +
+                        "script-src 'self' 'nonce-{{nonce}}' 'strict-dynamic'; " +
+                        "object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+                ))
+                // .xssProtection(x -> x.block(true))는 레거시 코드로, 최신 브라우저에서는 대부분 무시된다
         );
-
         return http.build();
     }
 
