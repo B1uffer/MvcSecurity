@@ -103,7 +103,9 @@ public class SecurityConfig {
     @Bean
     @Order(3)
     public SecurityFilterChain corsFilterChain(HttpSecurity http) throws Exception {
-
+        http
+                .cors(Customizer.withDefaults()) // CORS 활성화하기
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
         return http.build();
     }
 
