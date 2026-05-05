@@ -100,6 +100,13 @@ public class SecurityConfig {
         return http.build();
     }
 
+    @Bean
+    @Order(3)
+    public SecurityFilterChain corsFilterChain(HttpSecurity http) throws Exception {
+
+        return http.build();
+    }
+
     /**
      * 경로 매칭 전략, MVC 패턴
      * MvcRequestMatcher는 3.5.x 기준으로 더이상 사용되지 않는다
