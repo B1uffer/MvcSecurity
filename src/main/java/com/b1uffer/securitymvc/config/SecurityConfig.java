@@ -63,7 +63,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    @Order(2)
+    @Order(99)
     public SecurityFilterChain xssFilterChain(HttpSecurity http) throws Exception {
         http.headers(headers -> headers
                 .contentTypeOptions(Customizer.withDefaults()) // X-Content-Type-Options : nosniff
@@ -105,9 +105,10 @@ public class SecurityConfig {
     }
 
     @Bean
-    @Order(3)
+    @Order(2)
     public SecurityFilterChain corsFilterChain(HttpSecurity http) throws Exception {
         http
+                .securityMatcher("/cors/**")
                 .cors(Customizer.withDefaults()) // CORS 활성화하기
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
         return http.build();
